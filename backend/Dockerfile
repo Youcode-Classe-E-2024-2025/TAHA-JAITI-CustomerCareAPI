@@ -14,11 +14,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-COPY . .
-
-RUN composer install --optimize-autoloader --no-dev
-RUN chown -R www-data:www-data /var/www/html
-
 EXPOSE 9000
 
 CMD ["php-fpm"]
