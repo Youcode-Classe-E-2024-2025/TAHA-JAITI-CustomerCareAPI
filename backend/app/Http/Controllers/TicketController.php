@@ -15,6 +15,19 @@ class TicketController extends Controller
         $this->ticketService = $ticketService;
     }
 
+    public function get(Ticket $ticket){
+        return Res::success($ticket);
+    }
+
+    public function myTickets(){
+        $res = $this->ticketService->myTickets();
+        return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
+    }
+
+    public function freeTickets(){
+        $res = $this->ticketService->freeTickets();
+        return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
+    }
 
     public function create(TicketPostRequest $request){
         $res = $this->ticketService->create($request);
@@ -34,17 +47,8 @@ class TicketController extends Controller
         return $res ? Res::success($res,'Ticket updated successfully',200) : Res::error('Failed to update ticket');
     }
 
-    public function get(Ticket $ticket){
-        return Res::success($ticket);
-    }
-
-    public function myTickets(){
-        $res = $this->ticketService->myTickets();
-        return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
-    }
-
-    public function freeTickets(){
-        $res = $this->ticketService->freeTickets();
-        return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
+    public function assignTicket(string $id){
+        $res = $this->ticketService->assignTicket($id);
+        return $res ? res::success($res,'Ticket assigned successfully',200) : res::error('Failed to assign ticket');
     }
 }

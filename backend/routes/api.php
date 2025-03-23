@@ -15,6 +15,7 @@ Route::middleware(['jwt'])->group(function () {
     Route::get('/tickets/free', [TicketController::class, 'freeTickets']);
     Route::get('/tickets/{ticket}', [TicketController::class, 'get']);
     Route::post('/tickets', [TicketController::class, 'create']);
+    Route::post('/tickets/{id}', [TicketController::class, 'assignTicket']);
     Route::delete('/tickets/{id}', [TicketController::class, 'delete']);
     Route::patch('/tickets/{id}/{status}', [TicketController::class, 'updateStatus'])
         ->whereIn('status', ['open', 'inprog', 'closed']);

@@ -52,4 +52,12 @@ class TicketService
         $tickets = Ticket::where('assigned_to', null)->paginate(8);
         return $tickets;
     }
+
+    public function assignTicket(string $id): ?Ticket{
+        $user = Auth::user();
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->assigned_to = $user->id;
+        return $ticket->save() ? $ticket : null;
+    }
 }
