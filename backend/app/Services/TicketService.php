@@ -58,6 +58,8 @@ class TicketService
         $ticket = Ticket::findOrFail($id);
 
         $ticket->assigned_to = $user->id;
+        $ticket->status = 'in_progress';
+        
         return $ticket->save() ? $ticket : null;
     }
 }
