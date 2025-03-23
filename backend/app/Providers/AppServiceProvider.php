@@ -12,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton("jwt", function () {
+        $this->app->singleton("JWT", function () {
             return new JwtService();
         });
     }
