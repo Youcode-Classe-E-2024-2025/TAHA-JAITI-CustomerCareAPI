@@ -12,4 +12,5 @@ Route::group(["prefix"=> "auth"], function () {
 
 Route::middleware(['jwt'])->group(function () {
     Route::post('/tickets', [TicketController::class, 'create']);
+    Route::delete('/tickets/{id}', [TicketController::class, 'delete']);
 });

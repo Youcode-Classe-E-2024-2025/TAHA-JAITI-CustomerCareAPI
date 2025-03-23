@@ -24,5 +24,10 @@ class TicketService
         return $ticket ? $ticket : null;
     }
 
+    public function delete(string $id): bool{
+        $ticket = Ticket::findOrFail($id);
+
+        return $ticket->delete() ? true : false;
+    }
 
 }

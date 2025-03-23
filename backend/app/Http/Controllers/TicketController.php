@@ -20,4 +20,10 @@ class TicketController extends Controller
 
         return $res ? Res::success($res, 'Ticket created successfully', 201) : Res::error('Failed to create ticket');
     }
+
+    public function delete(string $id){
+        $res = $this->ticketService->delete($id);
+
+        return $res ? Res::success($res,'Ticket deleted successfully',200) : Res::error('Failed to delete ticket');
+    }
 }
