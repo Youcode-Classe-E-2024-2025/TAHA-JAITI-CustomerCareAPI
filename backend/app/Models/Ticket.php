@@ -10,7 +10,8 @@ class Ticket extends Model
         'title',
         'description',
         'status',
-        'assigned_to'
+        'assigned_to',
+        'user_id'
     ];
 
     public function agent()
