@@ -38,4 +38,13 @@ class TicketService
         return $ticket->save() ? $ticket : null;
     }
 
+    public function myTickets(){
+        $user = Auth::user();
+        
+        $tickets = $user->role === 'agent'
+            ? Ticket::where('assigned_to', $user->id)->get()
+            : Ticket::where('user_id', $user->id)->get();
+
+        return $tickets;
+    }
 }

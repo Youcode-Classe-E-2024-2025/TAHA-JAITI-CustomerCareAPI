@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Res;
 use App\Http\Requests\TicketPostRequest;
+use App\Models\Ticket;
 use App\Services\TicketService;
 
 class TicketController extends Controller
@@ -31,5 +32,14 @@ class TicketController extends Controller
         $res = $this->ticketService->updateStatus($id, $status);
 
         return $res ? Res::success($res,'Ticket updated successfully',200) : Res::error('Failed to update ticket');
+    }
+
+    public function get(Ticket $ticket){
+        return Res::success($ticket);
+    }
+
+    public function myTickets(){
+        $res = $this->ticketService->myTickets();
+        return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
     }
 }
