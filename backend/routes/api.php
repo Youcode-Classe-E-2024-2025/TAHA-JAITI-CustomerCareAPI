@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,6 @@ Route::middleware(['jwt'])->group(function () {
     Route::delete('/tickets/{id}', [TicketController::class, 'delete']);
     Route::patch('/tickets/{id}/{status}', [TicketController::class, 'updateStatus'])
         ->whereIn('status', ['open', 'inprog', 'closed']);
+
+    Route::post('/reply/{id}', [ResponseController::class,'reply']);
 });
