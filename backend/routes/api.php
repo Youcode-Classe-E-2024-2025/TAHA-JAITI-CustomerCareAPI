@@ -12,6 +12,7 @@ Route::group(["prefix" => "auth"], function () {
 
 Route::middleware(['jwt'])->group(function () {
     Route::get('/tickets', [TicketController::class, 'myTickets']);
+    Route::get('/tickets/free', [TicketController::class, 'freeTickets']);
     Route::get('/tickets/{ticket}', [TicketController::class, 'get']);
     Route::post('/tickets', [TicketController::class, 'create']);
     Route::delete('/tickets/{id}', [TicketController::class, 'delete']);

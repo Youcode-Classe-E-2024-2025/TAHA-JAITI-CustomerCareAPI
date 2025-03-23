@@ -42,4 +42,9 @@ class TicketController extends Controller
         $res = $this->ticketService->myTickets();
         return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
     }
+
+    public function freeTickets(){
+        $res = $this->ticketService->freeTickets();
+        return $res ? res::success($res,'',200) : res::error('Failed to fetch tickets');
+    }
 }

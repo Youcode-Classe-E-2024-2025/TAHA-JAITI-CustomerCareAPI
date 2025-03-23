@@ -40,11 +40,16 @@ class TicketService
 
     public function myTickets(){
         $user = Auth::user();
-        
-        $tickets = $user->role === 'agent'
-            ? Ticket::where('assigned_to', $user->id)->get()
-            : Ticket::where('user_id', $user->id)->get();
 
+        $tickets = $user->role === 'agent'
+            ? Ticket::where('assigned_to', $user->id)->paginate(8)
+            : Ticket::where('user_id', $user->id)->paginate(8);
+
+        return $tickets;
+    }
+
+    public function freeTickets(){
+        $tickets = Ticket::where('assigned_to', null)->paginate(8);
         return $tickets;
     }
 }
