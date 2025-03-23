@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (request()->is('api/*')) {
+            request()->headers->set('Accept', 'application/json');
+        }
     }
 }
