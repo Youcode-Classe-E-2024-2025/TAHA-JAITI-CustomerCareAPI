@@ -42,8 +42,8 @@ class TicketService
         $user = Auth::user();
 
         $tickets = $user->role === 'agent'
-            ? Ticket::where('assigned_to', $user->id)->paginate(8)
-            : Ticket::where('user_id', $user->id)->paginate(8);
+            ? Ticket::where('assigned_to', $user->id)->with('responses')->paginate(8)
+            : Ticket::where('user_id', $user->id)->with('responses')->paginate(8);
 
         return $tickets;
     }
@@ -59,7 +59,7 @@ class TicketService
 
         $ticket->assigned_to = $user->id;
         $ticket->status = 'in_progress';
-        
+
         return $ticket->save() ? $ticket : null;
     }
 }

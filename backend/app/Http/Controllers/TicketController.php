@@ -16,7 +16,7 @@ class TicketController extends Controller
     }
 
     public function get(Ticket $ticket){
-        return Res::success($ticket);
+        return Res::success($ticket->with('responses')->get());
     }
 
     public function myTickets(){
