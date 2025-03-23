@@ -14,10 +14,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-COPY startup.sh /usr/local/bin/startup.sh
-RUN chmod +x /usr/local/bin/startup.sh
-
-ENTRYPOINT ["/usr/local/bin/startup.sh"]
+RUN usermod -u 1000 www-data
+USER www-data
 
 EXPOSE 9000
 
