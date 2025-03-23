@@ -26,4 +26,10 @@ class TicketController extends Controller
 
         return $res ? Res::success($res,'Ticket deleted successfully',200) : Res::error('Failed to delete ticket');
     }
+
+    public function updateStatus(string $id, string $status){
+        $res = $this->ticketService->updateStatus($id, $status);
+
+        return $res ? Res::success($res,'Ticket updated successfully',200) : Res::error('Failed to update ticket');
+    }
 }

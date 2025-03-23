@@ -30,4 +30,12 @@ class TicketService
         return $ticket->delete() ? true : false;
     }
 
+    public function updateStatus(string $id, string $status): ?Ticket {
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->status = ($status === 'inprog') ? 'in_progress' : $status;
+
+        return $ticket->save() ? $ticket : null;
+    }
+
 }
