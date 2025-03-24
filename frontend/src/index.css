@@ -1,1 +1,16 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@theme {
+  --font-roboto: Roboto, sans-serif;
+
+  --color-black-200: oklch(23.17% 0.0113 114.97);
+  --color-reen-100: oklch(97.04% 0.0412 177.73);
+  --color-reen-200: oklch(61.43% 0.0603 149.38);
+  --color-reen-300: oklch(82.83% 0.0539 158.64);
+  --color-reen-400: oklch(92.15% 0.0724 163.7);
+}
+
+body {
+  @apply font-roboto bg-black text-white;
+}
