@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice";
 import { RootState, AppDispatch } from "../redux/store";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
+import Loading from "../components/Loading";
+import { FaEye, FaEyeSlash, FaEnvelope } from "react-icons/fa";
+import video from '../assets/video.mp4';
 
 const Login: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -44,16 +47,16 @@ const Login: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-dun flex">
-            {/* {loading && <Loading />} */}
+            {loading && <Loading />}
 
             {/* Left Side */}
             <div className="w-3/5 flex items-center justify-center">
-                <video className="h-full w-full object-cover" autoPlay muted loop playsInline />
+                <video className="h-full w-full object-cover" src={video} autoPlay muted loop playsInline />
             </div>
 
             {/* Right Side */}
             <div className="w-2/5 bg-gradient-to-br from-jet to-night flex flex-col justify-center p-12">
-                <h2 className="text-3xl font-bold mb-8 mx-auto">Log in to MAKTABA</h2>
+                <h2 className="text-3xl font-bold mb-8 mx-auto">Log in to DimaLeek</h2>
 
                 {error && <p className="text-red-500 text-sm mb-4 mx-auto font-medium">{error}</p>}
 
@@ -72,7 +75,7 @@ const Login: React.FC = () => {
                                 onChange={handleChange}
                                 onBlur={() => setErrors((prev) => ({ ...prev, email: validateEmail(credentials.email) }))}
                             />
-                            {/* <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" /> */}
+                            <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                         </div>
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
@@ -91,21 +94,21 @@ const Login: React.FC = () => {
                                 onChange={handleChange}
                             />
                             <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                {/* {showPassword ? <FaEyeSlash /> : <FaEye />} */}
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
                             </button>
                         </div>
                         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
                     </div>
 
-                    <button type="submit" className="w-full py-2 px-4 cursor-pointer bg-dun hover:bg-dun/50 text-black transition-all rounded-md">Sign in</button>
+                    <button type="submit" className="w-full py-2 px-4 cursor-pointer bg-amber-500 hover:bg-amber-500/50 text-black transition-all rounded-md">Sign in</button>
                 </form>
 
                 <div className="mt-6 text-center">
                     <p className="text-sm text-flash">
                         Don't have an account?{' '}
-                        {/* <Link to='/register' className="font-medium cursor-pointer text-dun hover:text-dun/50">
+                        <Link to='/register' className="font-medium cursor-pointer text-dun hover:text-dun/50">
                             Sign up
-                        </Link> */}
+                        </Link>
                     </p>
                 </div>
             </div>
