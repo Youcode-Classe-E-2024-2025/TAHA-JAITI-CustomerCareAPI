@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: laravel_app
+    container_name: backend
     restart: unless-stopped
     working_dir: /var/www/html
     environment:
@@ -21,7 +21,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: react_frontend
+    container_name: frontend
     working_dir: /app
     ports:
       - "3000:3000"
@@ -31,7 +31,7 @@ services:
     networks:
       - laravel_network
     depends_on:
-      - app
+      - webserver
 
   # PostgreSQL Service
   db:

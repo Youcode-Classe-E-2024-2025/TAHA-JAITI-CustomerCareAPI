@@ -10,4 +10,8 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    cors: {
+        origin: 'http://app',
+        credentials: true,
+    },
 });
