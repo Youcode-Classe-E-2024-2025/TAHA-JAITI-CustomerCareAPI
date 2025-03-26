@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice";
 import { RootState, AppDispatch } from "../redux/store";
@@ -15,7 +15,7 @@ const Login: React.FC = () => {
 
 
     const dispatch = useDispatch<AppDispatch>();
-    const { loading, error } = useSelector((state: RootState) => state.auth);
+    const { loading, error, user } = useSelector((state: RootState) => state.auth);
 
     const validateEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,6 +44,12 @@ const Login: React.FC = () => {
             setErrors({ email: emailErr, password: passwordErr });
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
 
     return (
         <div className="min-h-screen bg-dun flex">
