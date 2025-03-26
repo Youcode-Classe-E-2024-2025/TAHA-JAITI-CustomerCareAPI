@@ -33,7 +33,10 @@ class AuthService {
 
         $token = JWT::generate($user);
 
-        return $token ? $token : null;
+        return $token ? [
+            'token' => $token,
+            'user' => $user
+        ] : null;
     }
 
 }

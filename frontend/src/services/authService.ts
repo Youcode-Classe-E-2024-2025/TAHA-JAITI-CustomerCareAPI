@@ -1,5 +1,5 @@
 import api from "../api/axios";
-import { Response } from "../types/api";
+import { Response, User } from "../types/api";
 
 
 interface creds {
@@ -8,7 +8,12 @@ interface creds {
     password: string;
 }
 
-const login = (creds: Pick<creds, 'email' | 'password'>) => api.post<Response<string>>('/auth/login', creds);
+export interface LoginData {
+    token: string,
+    user: User
+}
+
+const login = (creds: Pick<creds, 'email' | 'password'>) => api.post<Response<LoginData>>('/auth/login', creds);
 const register = (creds: creds) => api.post<Response<string>>('/auth/register', creds);
 const logout = () => api.post<Response<null>>('/auth/logout');
 
