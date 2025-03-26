@@ -3,7 +3,7 @@ import { Ticket } from "lucide-react";
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-gradient-to-b from-amber-700/40 to-transparent py-4 px-6 flex justify-between items-center shadow-md">
+    <header className="bg-gradient-to-b from-amber-700/40 to-transparent py-4 px-6 flex justify-between items-center">
       <h1 className="text-2xl font-bold flex items-center gap-2">
         <Ticket className="text-amber-500"/>
         DimaLeek

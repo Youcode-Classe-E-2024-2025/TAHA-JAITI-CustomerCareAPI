@@ -7,5 +7,5 @@
 }
 
 body {
-  @apply bg-black text-white font-poppins;
+  @apply bg-white text-black font-poppins;
 }
