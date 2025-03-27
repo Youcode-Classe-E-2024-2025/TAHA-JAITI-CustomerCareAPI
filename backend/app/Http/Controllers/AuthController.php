@@ -30,4 +30,8 @@ class AuthController extends Controller
 
         return $res ? Res::success($res, 'User logged in', 200) : Res::error("Failed to login");
     }
+
+    public function logout(){
+        return Res::success(null, 'Logged out', 200);
+    }
 }
