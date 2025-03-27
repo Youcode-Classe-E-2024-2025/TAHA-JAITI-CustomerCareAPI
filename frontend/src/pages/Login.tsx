@@ -53,7 +53,7 @@ const Login: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-dun flex">
-            {isLoading && <Loading />}
+            {isLoading && <Loading message="Please wait..." />}
 
             {/* Left Side */}
             <div className="w-3/5 flex items-center justify-center">
