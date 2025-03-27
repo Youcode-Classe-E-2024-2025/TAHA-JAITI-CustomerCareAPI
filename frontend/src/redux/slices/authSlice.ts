@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState } from './../../types/state';
 import authService, { LoginData } from '../../services/authService';
 
+const storedUser = localStorage.getItem("user");
+
 const initialState: AuthState = {
-    user: null,
+    user: storedUser ? JSON.parse(storedUser) : null,
     token: localStorage.getItem("token") || null,
     loading: false,
     error: null,
@@ -20,6 +22,8 @@ export const login = createAsyncThunk<LoginData, { email: string, password: stri
             }
             
             localStorage.setItem("token", response.data.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.data.user));
+
             return response.data.data;
         } catch (err: any) {
             return rejectWithValue(err?.response?.data?.message || 'Login failed');
@@ -38,6 +42,8 @@ export const signup = createAsyncThunk<LoginData, {name:string ,email: string, p
             }
             
             localStorage.setItem("token", response.data.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.data.user));
+
             return response.data.data;
         } catch (err: any) {
             return rejectWithValue(err?.response?.data?.message || 'Register failed');
@@ -47,6 +53,7 @@ export const signup = createAsyncThunk<LoginData, {name:string ,email: string, p
 
 export const logout = createAsyncThunk("auth/logout", async () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     return null;
 });
 
