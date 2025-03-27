@@ -54,7 +54,7 @@ export const authApi = createApi({
         }),
         signup: builder.mutation<Response<AuthData>, SignupCreds>({
             query: (creds) => ({
-                url: 'auth/signup',
+                url: 'auth/register',
                 method: 'POST',
                 body: creds,
             }),
