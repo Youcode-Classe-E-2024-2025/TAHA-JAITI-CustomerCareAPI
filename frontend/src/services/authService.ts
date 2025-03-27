@@ -14,7 +14,7 @@ export interface LoginData {
 }
 
 const login = (creds: Pick<creds, 'email' | 'password'>) => api.post<Response<LoginData>>('/auth/login', creds);
-const register = (creds: creds) => api.post<Response<string>>('/auth/register', creds);
+const register = (creds: creds) => api.post<Response<LoginData>>('/auth/register', creds);
 const logout = () => api.post<Response<null>>('/auth/logout');
 
 const authService = {
