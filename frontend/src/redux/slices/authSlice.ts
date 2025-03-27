@@ -28,7 +28,7 @@ export const login = createAsyncThunk<LoginData, { email: string, password: stri
 );
 
 export const signup = createAsyncThunk<LoginData, {name:string ,email: string, password: string }>(
-    "auth/login",
+    "auth/signup",
     async (creds, { rejectWithValue }) => {
         try {
             const response = await authService.register(creds);
@@ -72,14 +72,17 @@ const authSlice = createSlice({
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;
                 state.token = null;
-            }).addCase(signup.pending, (state) => {
+            })
+            .addCase(signup.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-            }).addCase(signup.fulfilled, (state, action: PayloadAction<LoginData>) => {
+            })
+            .addCase(signup.fulfilled, (state, action: PayloadAction<LoginData>) => {
                 state.loading = false;
                 state.token = action.payload.token;
                 state.user = action.payload.user;
-            }).addCase(signup.rejected, (state, action) => {
+            })
+            .addCase(signup.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             });
