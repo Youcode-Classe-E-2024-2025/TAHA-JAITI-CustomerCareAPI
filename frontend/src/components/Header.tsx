@@ -1,11 +1,18 @@
 import React from "react";
 import { Ticket } from "lucide-react";
+import { Link } from "react-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const Header: React.FC = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  console.log(user);
+
   return (
     <header className="bg-gradient-to-b from-amber-700/40 to-transparent py-4 px-6 flex justify-between items-center">
       <h1 className="text-2xl font-bold flex items-center gap-2">
-        <Ticket className="text-amber-500"/>
+        <Ticket className="text-amber-500" />
         DimaLeek
       </h1>
       <nav>
@@ -19,12 +26,20 @@ const Header: React.FC = () => {
         </ul>
       </nav>
       <div className="flex space-x-4">
-        <button className="bg-amber-500 py-2 px-4 rounded-sm  hover:bg-amber-600 cursor-pointer transition">
-          Sign In
-        </button>
-        <button className="bg-amber-500 py-2 px-4 rounded-sm hover:bg-amber-600 cursor-pointer transition">
-          Sign Up
-        </button>
+        {user ? (
+          <Link to="/profile" className="hover:underline">
+            {user.name}
+          </Link>
+        ) : (
+          <>
+            <Link to="/login" className="bg-amber-500 py-2 px-4 rounded-sm  hover:bg-amber-600 cursor-pointer transition">
+              Sign In
+            </Link>
+            <Link to="/signup" className="bg-amber-500 py-2 px-4 rounded-sm hover:bg-amber-600 cursor-pointer transition">
+              Sign Up
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

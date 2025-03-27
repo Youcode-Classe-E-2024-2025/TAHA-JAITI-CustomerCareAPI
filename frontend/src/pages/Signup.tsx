@@ -179,7 +179,7 @@ const Register: React.FC = () => {
 
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 cursor-pointer bg-dun hover:bg-dun/50 text-black transition-all rounded-md"
+                        className="w-full py-2 px-4 cursor-pointer bg-amber-500 hover:bg-amber-500/50 text-black transition-all rounded-md"
                     >
                         Sign up
                     </button>
@@ -188,7 +188,7 @@ const Register: React.FC = () => {
                 <div className="mt-6 text-center">
                     <p className="text-sm text-flash">
                         Already have an account?{' '}
-                        <Link to="/login" className="font-medium cursor-pointer text-dun hover:text-dun/50">
+                        <Link to="/login" className="font-medium cursor-pointer text-amber-600 hover:text-amber-600/50">
                             Log in
                         </Link>
                     </p>
