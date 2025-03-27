@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../redux/slices/authSlice";
+import { signup } from "../redux/slices/authSlice";
 import { RootState, AppDispatch } from "../redux/store";
 import { FaEnvelope, FaEye, FaEyeSlash, FaUser } from 'react-icons/fa';
-import video from '../assets/login_vid.mp4';
+import video from '../assets/video.mp4';
 import Loading from '../components/Loading';
 
 const Register: React.FC = () => {
@@ -59,11 +59,15 @@ const Register: React.FC = () => {
         });
 
         if (!nameErr && !emailErr && !passwordErr && !confirmPassErr) {
-            register(creds.name, creds.email, creds.password, creds.password_confirmation).then(() => {
-                navigate('/');
-            });
+            dispatch(signup(creds));
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-dun flex">
