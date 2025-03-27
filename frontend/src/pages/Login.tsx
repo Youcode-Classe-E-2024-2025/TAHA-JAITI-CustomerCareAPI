@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router";
 import Loading from "../components/Loading";
 import { FaEye, FaEyeSlash, FaEnvelope } from "react-icons/fa";
 import video from '../assets/video.mp4';
-import { ApiErr } from "../types/api";
+import { formatErr } from "../helpers/format";
 
 const Login: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
         }
     }, [user, navigate]);
 
-    const errMsg = error && 'data' in error ? (error as ApiErr).data?.message : 'An error occurred.';
+    const errMsg = formatErr(error);
 
     return (
         <div className="min-h-screen bg-dun flex">

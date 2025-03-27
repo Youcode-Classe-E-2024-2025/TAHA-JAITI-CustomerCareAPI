@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../redux/slices/authSlice";
-import { RootState, AppDispatch } from "../redux/store";
+import { selectUser, useSignupMutation } from '../redux/api/authApi';
 import { FaEnvelope, FaEye, FaEyeSlash, FaUser } from 'react-icons/fa';
 import video from '../assets/video.mp4';
 import Loading from '../components/Loading';
+import { formatErr } from '../helpers/format';
 
 const Register: React.FC = () => {
     const [creds, setCreds] = useState({ name: '', email: '', password: '', password_confirmation: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({ name: '', email: '', password: '', password_confirmation: '' });
-    const dispatch = useDispatch<AppDispatch>();
-    const { loading, error, user } = useSelector((state: RootState) => state.auth);
+    const [signup, { isLoading, error }] = useSignupMutation();
     const navigate = useNavigate();
+    const user = selectUser();
 
     const validateName = (name: string) => {
         const nameRegex = /^[A-Za-z\s]+$/;
@@ -44,7 +43,7 @@ const Register: React.FC = () => {
         setCreds((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const nameErr = validateName(creds.name);
         const emailErr = validateEmail(creds.email);
@@ -59,7 +58,8 @@ const Register: React.FC = () => {
         });
 
         if (!nameErr && !emailErr && !passwordErr && !confirmPassErr) {
-            dispatch(signup(creds));
+            await signup(creds).unwrap();
+            navigate('/');
         }
     };
 
@@ -69,15 +69,17 @@ const Register: React.FC = () => {
         }
     }, [user, navigate]);
 
+    const errMsg = formatErr(error);
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-dun flex">
-            {loading && <Loading />}
+            {isLoading && <Loading />}
 
             {/* Left side */}
             <div className="w-2/5 bg-gradient-to-tl from-jet to-night flex flex-col justify-center p-12">
                 <h2 className="text-3xl font-bold mb-8 mx-auto">Register to MAKTABA</h2>
 
-                {error && <p className="text-red-500 text-sm mb-4 mx-auto text-center">{error}</p>}
+                {error && <p className="text-red-500 text-sm mb-4 mx-auto text-center">{errMsg}</p>}
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
