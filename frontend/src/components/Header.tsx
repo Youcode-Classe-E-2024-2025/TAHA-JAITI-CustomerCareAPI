@@ -1,11 +1,10 @@
 import React from "react";
 import { Ticket } from "lucide-react";
 import { Link } from "react-router";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { selectUser } from "../redux/api/authApi";
 
 const Header: React.FC = () => {
-  const { user } = useSelector((state: RootState) => state.auth);
+  const user = selectUser();
 
   console.log(user);
 

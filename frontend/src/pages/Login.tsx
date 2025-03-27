@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/slices/authSlice";
-import { RootState, AppDispatch } from "../redux/store";
+import { selectUser, useLoginMutation } from "../redux/api/authApi";
 import { useNavigate, Link } from "react-router";
 import Loading from "../components/Loading";
 import { FaEye, FaEyeSlash, FaEnvelope } from "react-icons/fa";
 import video from '../assets/video.mp4';
+import { ApiErr } from "../types/api";
 
 const Login: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -13,9 +12,9 @@ const Login: React.FC = () => {
     const [errors, setErrors] = useState({ email: "", password: "" });
     const navigate = useNavigate();
 
+    const [login, { isLoading, error }] = useLoginMutation();
+    const user = selectUser();
 
-    const dispatch = useDispatch<AppDispatch>();
-    const { loading, error, user } = useSelector((state: RootState) => state.auth);
 
     const validateEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,15 +30,14 @@ const Login: React.FC = () => {
         setCredentials((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const emailErr = validateEmail(credentials.email);
         const passwordErr = validatePassword(credentials.password);
 
         if (!emailErr && !passwordErr) {
-            const email = credentials.email;
-            const password = credentials.password;
-            dispatch(login({ email, password }));
+            await login(credentials).unwrap();
+            navigate('/');
         } else {
             setErrors({ email: emailErr, password: passwordErr });
         }
@@ -51,9 +49,11 @@ const Login: React.FC = () => {
         }
     }, [user, navigate]);
 
+    const errMsg = error && 'data' in error ? (error as ApiErr).data?.message : 'An error occurred.';
+
     return (
         <div className="min-h-screen bg-dun flex">
-            {loading && <Loading />}
+            {isLoading && <Loading />}
 
             {/* Left Side */}
             <div className="w-3/5 flex items-center justify-center">
@@ -64,7 +64,7 @@ const Login: React.FC = () => {
             <div className="w-2/5 bg-gradient-to-br from-jet to-night flex flex-col justify-center p-12">
                 <h2 className="text-3xl font-bold mb-8 mx-auto">Log in to DimaLeek</h2>
 
-                {error && <p className="text-red-500 text-sm mb-4 mx-auto font-medium">{error}</p>}
+                {error && <p className="text-red-500 text-sm mb-4 mx-auto font-medium">{errMsg}</p>}
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* Email Input */}

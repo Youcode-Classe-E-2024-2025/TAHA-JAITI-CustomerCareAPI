@@ -4,6 +4,11 @@ export interface Response<T> {
     data?: T | null;
 }
 
+export interface ApiErr {
+    data?: { message?: string };
+    status?: number;
+}
+
 export interface User {
     id: number
     name: string
